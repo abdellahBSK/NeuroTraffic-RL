@@ -1,0 +1,30 @@
+# NeuroTraffic-RL — SUMO Simulation Settings
+
+sumo:
+  # SUMO binary: "sumo" (headless) or "sumo-gui" (with GUI)
+  binary: "sumo"
+  gui_binary: "sumo-gui"
+
+  # Network and route files (relative to project root)
+  config_file: "sumo/networks/casablanca_intersection.sumocfg"
+  net_file: "sumo/networks/casablanca_intersection.net.xml"
+  route_file: "sumo/networks/casablanca_intersection.rou.xml"
+
+  # Port range for TraCI connections (used for parallel envs)
+  port_start: 8813
+  port_end: 8899
+
+  # Step length in seconds (internal SUMO simulation resolution)
+  step_length: 1.0
+
+  # Disable SUMO output for cleaner terminal
+  no_warnings: true
+  no_step_log: true
+
+  # Teleport timeout: -1 = disable teleporting (vehicles wait instead)
+  time_to_teleport: -1
+
+# Baseline agent configuration (FixedCycleAgent)
+baseline:
+  green_duration: 30    # seconds of green per phase
+  yellow_duration: 3    # seconds of yellow per transition

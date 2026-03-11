@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  NeuroTraffic-RL: Single 4-way intersection network
+  
+  Layout (top view):
+  
+          N2 (in)    N1 (out)
+            |          ^
+            v          |
+     ──────────────────────────
+  W1 (out) <─  [tl_0]  ─> E1 (out)
+  W2 (in)  ──>         <── E2 (in)
+     ──────────────────────────
+            |          ^
+            v          |
+          S1 (out)   S2 (in)
+  
+  Each approach has 2 lanes, 200m edges.
+-->
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="250.00,250.00" convBoundary="0.00,0.00,500.00,500.00"
+              origBoundary="-250.00,-250.00,250.00,250.00"
+              projParameter="!"/>
+
+    <!-- ===== Edge Types ===== -->
+    <type id="default" priority="1" numLanes="2" speed="13.89"/>
+
+    <!-- ===== Edges (Incoming) ===== -->
+    <!-- North incoming (top to center) -->
+    <edge id="N2C" from="N" to="C" priority="1" numLanes="2" speed="13.89">
+        <lane id="N2C_0" index="0" speed="13.89" length="200.00" shape="248.40,450.00 248.40,260.80"/>
+        <lane id="N2C_1" index="1" speed="13.89" length="200.00" shape="251.60,450.00 251.60,260.80"/>
+    </edge>
+    <!-- South incoming (bottom to center) -->
+    <edge id="S2C" from="S" to="C" priority="1" numLanes="2" speed="13.89">
+        <lane id="S2C_0" index="0" speed="13.89" length="200.00" shape="251.60,50.00 251.60,239.20"/>
+        <lane id="S2C_1" index="1" speed="13.89" length="200.00" shape="248.40,50.00 248.40,239.20"/>
+    </edge>
+    <!-- East incoming (right to center) -->
+    <edge id="E2C" from="E" to="C" priority="1" numLanes="2" speed="13.89">
+        <lane id="E2C_0" index="0" speed="13.89" length="200.00" shape="450.00,251.60 260.80,251.60"/>
+        <lane id="E2C_1" index="1" speed="13.89" length="200.00" shape="450.00,248.40 260.80,248.40"/>
+    </edge>
+    <!-- West incoming (left to center) -->
+    <edge id="W2C" from="W" to="C" priority="1" numLanes="2" speed="13.89">
+        <lane id="W2C_0" index="0" speed="13.89" length="200.00" shape="50.00,248.40 239.20,248.40"/>
+        <lane id="W2C_1" index="1" speed="13.89" length="200.00" shape="50.00,251.60 239.20,251.60"/>
+    </edge>
+
+    <!-- ===== Edges (Outgoing) ===== -->
+    <!-- Center to North -->
+    <edge id="C2N" from="C" to="N" priority="1" numLanes="2" speed="13.89">
+        <lane id="C2N_0" index="0" speed="13.89" length="200.00" shape="248.40,260.80 248.40,450.00"/>
+        <lane id="C2N_1" index="1" speed="13.89" length="200.00" shape="245.20,260.80 245.20,450.00"/>
+    </edge>
+    <!-- Center to South -->
+    <edge id="C2S" from="C" to="S" priority="1" numLanes="2" speed="13.89">
+        <lane id="C2S_0" index="0" speed="13.89" length="200.00" shape="251.60,239.20 251.60,50.00"/>
+        <lane id="C2S_1" index="1" speed="13.89" length="200.00" shape="254.80,239.20 254.80,50.00"/>
+    </edge>
+    <!-- Center to East -->
+    <edge id="C2E" from="C" to="E" priority="1" numLanes="2" speed="13.89">
+        <lane id="C2E_0" index="0" speed="13.89" length="200.00" shape="260.80,248.40 450.00,248.40"/>
+        <lane id="C2E_1" index="1" speed="13.89" length="200.00" shape="260.80,245.20 450.00,245.20"/>
+    </edge>
+    <!-- Center to West -->
+    <edge id="C2W" from="C" to="W" priority="1" numLanes="2" speed="13.89">
+        <lane id="C2W_0" index="0" speed="13.89" length="200.00" shape="239.20,251.60 50.00,251.60"/>
+        <lane id="C2W_1" index="1" speed="13.89" length="200.00" shape="239.20,254.80 50.00,254.80"/>
+    </edge>
+
+    <!-- ===== Junctions ===== -->
+    <junction id="C" type="traffic_light" x="250.00" y="250.00"
+              incLanes="N2C_0 N2C_1 E2C_0 E2C_1 S2C_0 S2C_1 W2C_0 W2C_1"
+              intLanes=""
+              shape="245.20,260.80 254.80,260.80 260.80,254.80 260.80,245.20 254.80,239.20 245.20,239.20 239.20,245.20 239.20,254.80"/>
+    <junction id="N" type="dead_end" x="250.00" y="450.00" incLanes="C2N_0 C2N_1" intLanes="" shape="250.00,450.00 243.60,450.00 250.00,450.00"/>
+    <junction id="S" type="dead_end" x="250.00" y="50.00"  incLanes="C2S_0 C2S_1" intLanes="" shape="250.00,50.00 256.40,50.00 250.00,50.00"/>
+    <junction id="E" type="dead_end" x="450.00" y="250.00" incLanes="C2E_0 C2E_1" intLanes="" shape="450.00,250.00 450.00,243.60 450.00,250.00"/>
+    <junction id="W" type="dead_end" x="50.00"  y="250.00" incLanes="C2W_0 C2W_1" intLanes="" shape="50.00,250.00 50.00,256.40 50.00,250.00"/>
+
+    <!-- ===== Connections ===== -->
+    <!-- North incoming: right-turn to East, straight to South, left-turn to West -->
+    <connection from="N2C" to="C2E" fromLane="0" toLane="0"/>
+    <connection from="N2C" to="C2S" fromLane="0" toLane="0"/>
+    <connection from="N2C" to="C2S" fromLane="1" toLane="1"/>
+    <connection from="N2C" to="C2W" fromLane="1" toLane="1"/>
+
+    <!-- South incoming -->
+    <connection from="S2C" to="C2W" fromLane="0" toLane="0"/>
+    <connection from="S2C" to="C2N" fromLane="0" toLane="0"/>
+    <connection from="S2C" to="C2N" fromLane="1" toLane="1"/>
+    <connection from="S2C" to="C2E" fromLane="1" toLane="1"/>
+
+    <!-- East incoming -->
+    <connection from="E2C" to="C2S" fromLane="0" toLane="0"/>
+    <connection from="E2C" to="C2W" fromLane="0" toLane="0"/>
+    <connection from="E2C" to="C2W" fromLane="1" toLane="1"/>
+    <connection from="E2C" to="C2N" fromLane="1" toLane="1"/>
+
+    <!-- West incoming -->
+    <connection from="W2C" to="C2N" fromLane="0" toLane="0"/>
+    <connection from="W2C" to="C2E" fromLane="0" toLane="0"/>
+    <connection from="W2C" to="C2E" fromLane="1" toLane="1"/>
+    <connection from="W2C" to="C2S" fromLane="1" toLane="1"/>
+
+    <!-- ===== Traffic Light Program ===== -->
+    <!--
+      Phase 0: NS green (N2C + S2C get green)   - 30s
+      Phase 1: NS yellow                          - 3s
+      Phase 2: EW green (E2C + W2C get green)    - 30s
+      Phase 3: EW yellow                          - 3s
+      
+      State string encoding (16 connections in order above):
+        N2C->C2E(0), N2C->C2S(0), N2C->C2S(1), N2C->C2W(1),
+        S2C->C2W(0), S2C->C2N(0), S2C->C2N(1), S2C->C2E(1),
+        E2C->C2S(0), E2C->C2W(0), E2C->C2W(1), E2C->C2N(1),
+        W2C->C2N(0), W2C->C2E(0), W2C->C2E(1), W2C->C2S(1)
+    -->
+    <tlLogic id="tl_0" type="static" programID="0" offset="0">
+        <phase duration="30" state="GGGGGGGGrrrrrrrr"/>  <!-- NS green -->
+        <phase duration="3"  state="yyyyyyyyrrrrrrrr"/>  <!-- NS yellow -->
+        <phase duration="30" state="rrrrrrrrGGGGGGGG"/>  <!-- EW green -->
+        <phase duration="3"  state="rrrrrrrryyyyyyyy"/>  <!-- EW yellow -->
+    </tlLogic>
+
+</net>

@@ -1,0 +1,71 @@
+# NeuroTraffic-RL — Intersection Configuration
+# Bd Mohammed VI × Bd Abou Chouaib Doukkali, Casablanca, Morocco
+# Adding a new intersection = create a new YAML file in this directory.
+
+intersection_id: "casablanca_bd_mohammed_vi"
+display_name: "Bd Mohammed VI × Bd Abou Chouaib Doukkali"
+coordinates:
+  lat: 33.5731
+  lon: -7.5898
+
+# Traffic light node ID in the SUMO network
+tl_id: "J0"
+
+# Number of incoming road arms
+num_arms: 4
+
+# Incoming lane IDs (one per arm — used for observations)
+incoming_lanes:
+  - "N2J_0"
+  - "N2J_1"
+  - "S2J_0"
+  - "S2J_1"
+  - "E2J_0"
+  - "E2J_1"
+  - "W2J_0"
+  - "W2J_1"
+
+# Incoming edges (used for flow tracking)
+incoming_edges:
+  - "N2J"
+  - "S2J"
+  - "E2J"
+  - "W2J"
+
+# Observation grouping: one observation group per arm
+observation_arms:
+  - id: "north"
+    lanes: ["N2J_0", "N2J_1"]
+  - id: "south"
+    lanes: ["S2J_0", "S2J_1"]
+  - id: "east"
+    lanes: ["E2J_0", "E2J_1"]
+  - id: "west"
+    lanes: ["W2J_0", "W2J_1"]
+
+# Traffic light phases (4-phase NS/EW cycle)
+phases:
+  - id: 0
+    name: "NS_GREEN"
+    arms: ["north", "south"]
+    min_duration: 10
+    max_duration: 60
+  - id: 1
+    name: "NS_YELLOW"
+    arms: []
+    fixed_duration: 3
+  - id: 2
+    name: "EW_GREEN"
+    arms: ["east", "west"]
+    min_duration: 10
+    max_duration: 60
+  - id: 3
+    name: "EW_YELLOW"
+    arms: []
+    fixed_duration: 3
+
+# RL step duration (seconds per agent decision)
+step_seconds: 5
+
+# Maximum episode length in seconds
+max_episode_seconds: 3600

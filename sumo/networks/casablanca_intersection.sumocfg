@@ -3,8 +3,8 @@
                xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="net.net.xml"/>
-        <route-files value="routes.rou.xml"/>
+        <net-file value="casablanca_intersection.net.xml"/>
+        <route-files value="casablanca_intersection.rou.xml"/>
     </input>
 
     <time>
@@ -13,12 +13,14 @@
     </time>
 
     <processing>
+        <!-- Disable teleporting — vehicles wait at congestion instead -->
         <time-to-teleport value="-1"/>
     </processing>
 
     <report>
         <verbose value="false"/>
         <no-step-log value="true"/>
+        <no-warnings value="true"/>
     </report>
 
 </configuration>
