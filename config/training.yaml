@@ -1,0 +1,39 @@
+# NeuroTraffic-RL: Training & Evaluation Configuration
+training:
+  algorithm: "ppo"                        # RL algorithm: "ppo" | "dqn"
+  total_timesteps: 100000                 # Total training timesteps
+  learning_rate: 0.0003                   # Optimizer learning rate
+  batch_size: 64                          # Mini-batch size
+  n_steps: 2048                           # PPO rollout buffer length
+  gamma: 0.99                             # Discount factor
+  gae_lambda: 0.95                        # GAE lambda for PPO
+  clip_range: 0.2                         # PPO clipping parameter
+  ent_coef: 0.01                          # Entropy coefficient
+  n_epochs: 10                            # Number of PPO update epochs
+  seed: 42                                # Random seed
+  log_dir: "logs/"                        # TensorBoard log directory
+  model_dir: "checkpoints/"               # Model checkpoint directory
+  save_freq: 10000                        # Save checkpoint every N timesteps
+  verbose: 1                              # Logging verbosity (0=none, 1=info, 2=debug)
+
+model:
+  type: "mlp"                             # Model architecture: "mlp" | "gnn"
+  hidden_layers:                          # Hidden layer sizes for MLP
+    - 128
+    - 64
+  activation: "relu"                      # Activation function
+
+reward:
+  queue_weight: -0.5                      # Weight for queue length penalty
+  wait_weight: -0.5                       # Weight for waiting time penalty
+  speed_bonus: 0.1                        # Weight for mean speed reward
+  throughput_bonus: 0.0                   # Weight for throughput bonus
+
+evaluation:
+  n_episodes: 10                          # Number of evaluation episodes
+  deterministic: true                     # Use deterministic policy for eval
+
+baseline:
+  type: "fixed_time"                      # Baseline type: "fixed_time"
+  green_duration: 30                      # Fixed green phase duration (seconds)
+  yellow_duration: 3                      # Fixed yellow phase duration (seconds)

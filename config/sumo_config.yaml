@@ -1,0 +1,25 @@
+# NeuroTraffic-RL: SUMO Simulation Configuration
+sumo:
+  binary: "sumo-gui"                          # Use "sumo-gui" for visualization
+  config_file: "sumo/config.sumocfg"
+  net_file: "sumo/net.net.xml"
+  route_file: "sumo/routes.rou.xml"
+  max_steps: 3600                         # Maximum simulation steps (1 hour at 1s/step)
+  delta_time: 5                           # Seconds between RL decision points
+  yellow_time: 3                          # Yellow phase duration (seconds)
+  min_green_time: 10                      # Minimum green phase duration (seconds)
+  gui: true                              # Enable SUMO GUI
+
+intersection:
+  tl_id: "tl_0"                           # Traffic light ID in the network
+  num_phases: 4                           # Total number of TL phases
+  incoming_edges:                         # Edges approaching the intersection
+    - "N2C"
+    - "S2C"
+    - "E2C"
+    - "W2C"
+  outgoing_edges:                         # Edges leaving the intersection
+    - "C2N"
+    - "C2S"
+    - "C2E"
+    - "C2W"

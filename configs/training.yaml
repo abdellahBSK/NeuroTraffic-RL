@@ -1,0 +1,48 @@
+# NeuroTraffic-RL — Training Hyperparameters
+
+algorithm: PPO
+policy: MlpPolicy
+
+hyperparameters:
+  learning_rate: 3.0e-4
+  n_steps: 2048
+  batch_size: 64
+  n_epochs: 10
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_range: 0.2
+  ent_coef: 0.01
+  vf_coef: 0.5
+  max_grad_norm: 0.5
+
+# Training duration
+total_timesteps: 500000
+
+# Evaluation settings
+eval_freq: 10000
+n_eval_episodes: 5
+
+# Paths
+save_path: "models/"
+log_path: "logs/"
+tensorboard_log: "logs/tensorboard/"
+
+# Reward function coefficients
+# reward = -α·wait - γ·max_queue - δ·phase_change + β·throughput
+reward:
+  alpha: 1.0     # Waiting time penalty weight
+  beta: 0.5      # Throughput bonus weight
+  gamma: 0.3     # Max-queue (starvation) penalty weight
+  delta: 0.1     # Unnecessary phase-change penalty weight
+
+  # Normalization caps
+  max_wait_cap: 300.0          # seconds — caps waiting time normalization
+  max_queue_cap: 20.0          # vehicles
+  max_speed: 13.89             # m/s (50 km/h)
+  max_density: 0.1             # vehicles per meter
+
+# Seed for reproducibility
+seed: 42
+
+# SB3 verbosity (0=silent, 1=info, 2=debug)
+verbose: 1
